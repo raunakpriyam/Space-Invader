@@ -2,10 +2,11 @@ import pygame
 import random
 import math
 from pygame import mixer
-#Initialize pygame
+#Initialize the pygame
 pygame.init()
+
 #create the screen
-screen=pygame.display.set_mode((800,600))
+screen=pygame.display.set_mode((800,600)) #width and height
 #background
 background=pygame.image.load('d1.png')
 #Title and icon
@@ -17,6 +18,7 @@ playerImg=pygame.image.load('play.png')
 playerX=370
 playerY=480
 playerX_change=0
+
 #enemy
 enemyImg=[]
 enemyX=[]
@@ -24,6 +26,7 @@ enemyY=[]
 enemyX_change=[]
 enemyY_change=[]
 num_of_enemies=6
+
 for i in range(num_of_enemies):
 
     enemyImg.append(pygame.image.load('skull.png'))
@@ -44,6 +47,7 @@ score_value=0
 font=pygame.font.Font('freesansbold.ttf',32)
 textX=10
 textY=10
+
 #game over text
 over_font=pygame.font.Font('freesansbold.ttf',32)
 
@@ -60,10 +64,12 @@ def player(x,y):
     screen.blit(playerImg,(x,y))
 def enemy(x,y,i):
     screen.blit(enemyImg[i],(x,y))
+    
 def bullet(x,y):
     global bullet_state
     bullet_state="fire"
     screen.blit(bulletImg,(x+16,y+10))
+    
 def iscollision(enemyX,enemyY,bulletX,bulletY):
     distance=math.sqrt((math.pow(enemyX-bulletX,2))+(math.pow(enemyY-bulletY,2)))
     if distance<27:
@@ -78,10 +84,11 @@ while running:
     screen.fill((255,255,255))
     screen.blit(background,(0,0))
 
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
+    for event in pygame.event.get(): #list of events in window
+        
+        if event.type==pygame.QUIT: #close event
             running=False
-        if event.type==pygame.KEYDOWN:
+        if event.type==pygame.KEYDOWN:  #a key has been pressed
             if event.key==pygame.K_LEFT:
 
                 playerX_change=-5
@@ -95,7 +102,7 @@ while running:
                     bulletX=playerX
                     bullet(bulletX,bulletY)
 
-        if event.type==pygame.KEYUP:
+        if event.type==pygame.KEYUP: #releasing the key 
             if event.key==pygame.K_LEFT or event.key==pygame.K_RIGHT:
                 playerX_change=0
     #movement of player
